@@ -1,5 +1,5 @@
 form.form-horizontal.span12(action='/api/wines/{{form._id}}', ng-upload)
-  legend Wine Details
+  legend Product Details
   br
   .row
     .span8
@@ -35,7 +35,7 @@ form.form-horizontal.span12(action='/api/wines/{{form._id}}', ng-upload)
     .span4
       .well(style='width: 50%; text-align: center; margin: 0px auto;')
         p
-          img#pictureView(width='180', src='/pics/{{form.picture}}')
+          img#pictureView(width='180', src='../{{form.picture}}')
         p
           input#picture(type='file', name='picture', ng-model='form.picture')
   .form-actions
@@ -45,4 +45,4 @@ form.form-horizontal.span12(action='/api/wines/{{form._id}}', ng-upload)
 .span12
   .alert.alert-success(style='display: none;')
     b Success!
-    | Wine saved successfully
+    | Product saved successfully

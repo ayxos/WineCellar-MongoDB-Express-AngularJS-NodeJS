@@ -69,6 +69,8 @@ exports.addWine = function (req, res) {
     }
     else {
         var file = req.files.picture;
+        console.log('REQ', req);
+        console.log('REQFILE', file);
         var extension = file.name;
         var i = 0, j = 0;
         for(i = extension.length; i >= 0; i--){
@@ -86,18 +88,20 @@ exports.addWine = function (req, res) {
                     res.redirect('/wines');
                 }
             });
-            fileName = wine._id.toString() + "" + extension.substring(j - 1, extension.length);
+
+            fileName = './uploads/' + wine.name + '_' + wine._id.toString() + '.jpg';
+            fs.readFile(file.path, function (err, data) {
+            //here get the image name and other data parameters which you are sending like image name etc.
+                fs.writeFile(fileName, data, function (err) {
+                });
+                //dont forgot the delete the temp files.
+            });
             wine.picture = fileName;
             collection.update({'_id':wine._id}, wine, {safe:true}, function(err, result) {
                 if (err) {
                     res.send({'error':'An error has occurred'});
                 } else {
-                    console.log(result + ' file(s) Add');
-                }
-            });
-            fs.rename(file.path, pictureUrl + fileName, function(error) {
-                if (error) {
-                    console.log("error");
+                    console.log(result + ' file(s) Add', wine);
                 }
             });
         });
